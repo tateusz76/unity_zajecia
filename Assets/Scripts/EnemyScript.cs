@@ -62,6 +62,6 @@ public class EnemyScript : MonoBehaviour
     {
         enemyAnim.SetBool("isDead", true);
         gameObject.SetActive(false);
-        
+        currentHP = maxHP;
     }
 }

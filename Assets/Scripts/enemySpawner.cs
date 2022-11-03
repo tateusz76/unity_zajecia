@@ -21,6 +21,7 @@ public class enemySpawner : MonoBehaviour
 
     private IEnumerator spawnEnemy(float interval, GameObject enemy)
     {
+        
         yield return new WaitForSeconds(interval);
         GameObject newSlime = objectPool.SharedInstance.GetPooledObject();
 
