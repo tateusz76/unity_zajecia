@@ -14,6 +14,7 @@ public class EnemyScript : MonoBehaviour
 
     public Animator enemyAnim;
 
+    public PlayerMovement playerData;
 
     private void Awake()
     {
@@ -60,8 +61,10 @@ public class EnemyScript : MonoBehaviour
 
     void Death()
     {
+        playerData.playerEXP += 20;
         enemyAnim.SetBool("isDead", true);
         gameObject.SetActive(false);
         currentHP = maxHP;
+        
     }
 }

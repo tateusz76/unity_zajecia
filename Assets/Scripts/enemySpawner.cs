@@ -6,7 +6,6 @@ public class enemySpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject slime;
-
     [SerializeField]
     private float spawnRate = 3.5f;
     private float x,y;

@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
 
         foreach(Collider2D enemy in hittableEnemies)
         {
-            Debug.Log("Hit");
+            //Debug.Log("Hit");
             enemy.GetComponent<EnemyScript>().takingDamage(playerDamage);
         }
     } 
