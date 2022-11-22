@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,7 +19,14 @@ public class PlayerMovement : MonoBehaviour
     public int playerEXP = 0;
 
     public HPBarController bar;
+    public expBarController expBar;
+
     public PlayerAttack attack;
+
+    public AudioSource damaged;
+
+    public TextMeshProUGUI  HPText;
+    public TextMeshProUGUI  EXPText;
 
 
     // Start is called before the first frame update
@@ -25,6 +34,11 @@ public class PlayerMovement : MonoBehaviour
     {
         playerCurrentHP = playerMaxHP;
         bar.setMaxHP(playerCurrentHP);
+        expBar.setMaxEXP(20);
+        expBar.setEXP(playerEXP);
+
+        HPText.text = playerCurrentHP.ToString();
+        EXPText.text = playerEXP.ToString();
     }
 
     // Update is called once per frame
@@ -60,7 +74,13 @@ public class PlayerMovement : MonoBehaviour
             attack.playerDamage += 2;
             playerCurrentHP = playerMaxHP;
             bar.setMaxHP(playerCurrentHP);
+            HPText.text = playerCurrentHP.ToString();
+            expBar.setMaxEXP(playerLevel * 20);
+            expBar.setMinEXP();
+            EXPText.text = playerEXP.ToString();
         }
+        expBar.setEXP(playerEXP);
+        EXPText.text = playerEXP.ToString();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -68,9 +88,11 @@ public class PlayerMovement : MonoBehaviour
         
         if (collision.gameObject.tag == "Enemy")
         {
+            damaged.Play();
             playerCurrentHP -= 20;
             bar.setHP(playerCurrentHP);
-            Debug.Log(playerCurrentHP);
+            HPText.text = playerCurrentHP.ToString();
+            //Debug.Log(playerCurrentHP);
 
             if(playerCurrentHP <= 0) 
             {
@@ -80,18 +102,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "Heal")
-        {
-            playerCurrentHP += 50;
-            if(playerCurrentHP > playerMaxHP)
-            {
-                playerCurrentHP = playerMaxHP;
-            }
-            bar.setHP(playerCurrentHP);
-            col.gameObject.SetActive(false);
+    // void OnTriggerEnter2D(Collider2D col)
+    // {
+    //     if (col.gameObject.tag == "Heal")
+    //     {
+    //         playerCurrentHP += 50;
+    //         if(playerCurrentHP > playerMaxHP)
+    //         {
+    //             playerCurrentHP = playerMaxHP;
+    //         }
+    //         bar.setHP(playerCurrentHP);
+    //         col.gameObject.SetActive(false);
             
-        }
-    }    
+    //     }
+    // }    
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -11,14 +13,23 @@ public class PlayerAttack : MonoBehaviour
     public LayerMask enemyLayer;
 
     public int playerDamage = 20;
+    
+    public AudioSource swing;
+    public float cooldown = 0;
+
+    public TextMeshProUGUI  attackText;
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Mouse0))
+        if(Input.GetKeyUp(KeyCode.Mouse0) && cooldown <= 0)
         {
+            cooldown = 1;
+            swing.Play();
             Attack();
         }
+        cooldown -= Time.deltaTime;
+        attackText.text = playerDamage.ToString();
     }  
 
     void Attack()
